@@ -1,0 +1,22 @@
+{
+  "name": "houzeo-estate-search",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.8",
+    "dotenv": "^16.4.5",
+    "swiper": "^11.1.14",
+    "vue": "^3.5.10"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "sass": "^1.79.4",
+    "vite": "^5.4.8"
+  }
+}

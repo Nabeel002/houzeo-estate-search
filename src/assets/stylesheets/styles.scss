@@ -1,0 +1,237 @@
+@import "./base.scss";
+@mixin input-state {
+  border: double 3px transparent;
+  border-radius: 25px;
+  background-image: linear-gradient(white, white),
+    linear-gradient(to right, #2876c1, #0e5293);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+@mixin dropdown-style {
+  display: flex;
+  cursor: pointer;
+  justify-content: space-between;
+  height: 48px;
+  width: fit-content;
+  padding: 0px 23px;
+  align-items: center;
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  transition: border-color 0.2s ease, background-color 0.2s ease,
+    color 0.2s ease;
+  background-color: white;
+  outline: none;
+  gap: 1rem;
+}
+@mixin input-button-style {
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+  position: absolute;
+  right: 48px;
+  top: 52%;
+  transform: translateY(-50%);
+}
+
+#search-bar {
+  border-radius: 25px;
+  font-family: "Poppins";
+  width: 100%;
+  height: 48px;
+  border: 2px solid #00000033;
+  outline: none;
+  box-sizing: border-box;
+  clip-path: inset(0 round 25px);
+  background-color: white;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 16px 13px;
+  background-size: 0px;
+  position: relative;
+  box-sizing: border-box;
+  background-color: transparent;
+
+  &:hover,
+  &:focus {
+    border-color: transparent;
+  }
+}
+
+.input-wrapper:after {
+  content: "";
+  position: absolute;
+  border: double 2.5px transparent;
+  border-radius: 25px;
+  background-image: linear-gradient(white, white),
+    linear-gradient(to right, #2876c1, #0e5293);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  width: 99%;
+  height: 46px;
+  left: 0px;
+  z-index: -1;
+  top: 0px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.input-wrapper:hover:after,
+.input-wrapper:focus-within:after {
+  opacity: 1;
+}
+.filter-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: fixed;
+  top: 79px;
+  z-index: 99;
+  background-color: white;
+  width: 100%;
+  padding-left: 28px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+#search-bar::-webkit-search-cancel-button {
+  display: none;
+}
+.input-wrapper {
+  position: relative;
+  width: 398px;
+}
+
+.cross-button {
+  @include input-button-style();
+}
+.search-input {
+  @include input-button-style();
+  right: 7px;
+  top: 53%;
+}
+#search-bar::placeholder {
+  color: gray;
+}
+
+#dropdown-wrapper {
+  .inner-wrapper-dropdown {
+    @include dropdown-style();
+    &:hover {
+      border: 1px solid #0b5aa5;
+      color: #2876c1;
+      font-weight: 600;
+      background-color: #f3f7fa;
+    }
+
+    &:focus {
+      border: 1px solid #0b5aa5;
+      color: #2876c1;
+      font-weight: 600;
+      background-color: #f3f7fa;
+    }
+  }
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+:deep(.swiper-button-next) {
+  content: url("../arrow-right.svg");
+  width: 44px !important;
+}
+:deep(.swiper-button-prev) {
+  content: url("../arrow-right.svg");
+  transform: rotate(180deg);
+  top: var(--swiper-navigation-top-offset, 47%) !important;
+  width: 44px !important;
+}
+:deep(.swiper-pagination-bullet-active) {
+  background: white !important;
+  opacity: 1 !important;
+}
+
+:deep(.swiper-pagination-bullet) {
+  background: var(--swiper-pagination-bullet-inactive-color, #f5f5f5);
+  opacity: var(--swiper-pagination-bullet-inactive-opacity, 0.5);
+}
+
+.mobile-filter-wrapper {
+  display: none;
+}
+
+.mobile-only-btn {
+  display: none;
+}
+.mobile-person-icon {
+  display: none !important;
+  align-self: end;
+}
+@media screen and (max-width: 650px) {
+  .mobile-person-icon {
+    display: block !important;
+  }
+  .desktopSave {
+    display: none !important;
+  }
+  .searchResultText {
+    position: static !important;
+  }
+  .input-wrapper {
+    width: 70%;
+  }
+
+  .housesCount {
+    position: static !important;
+  }
+  .mobile-only-btn {
+    display: block;
+    background-color: #0b5aa5;
+    border: 0px;
+    border-radius: 25px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .mobile-filter-wrapper {
+    display: block;
+  }
+  #dropdown-wrapper {
+    .inner-wrapper-dropdown {
+      height: 42px;
+      width: fit-content;
+      padding-right: 10px;
+      gap: 0.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 335px) {
+  .grid-wrapper {
+    margin-top: 300px !important;
+  }
+
+  #search-bar::placeholder {
+    font-size: 12px;
+  }
+}
