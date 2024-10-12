@@ -14,14 +14,12 @@ const toggleDropDown = () => {
     isOpen.value = !isOpen.value;
 };
 
-// Function to handle clicks outside the dropdown
 const handleClickOutside = (event) => {
     if (dropBtn.value && !dropBtn.value.contains(event.target)) {
         isOpen.value = false;
     }
 };
 
-// Prevent clicks inside dropdown content from closing the dropdown
 const handleInsideClick = (event) => {
     event.stopPropagation();
 };

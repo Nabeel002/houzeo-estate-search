@@ -92,7 +92,7 @@ else {
     .navbar {
         position: fixed;
         width: 90%;
-        z-index: 7;
+        z-index: 10;
     }
 
     .line-1 {

@@ -123,10 +123,12 @@ import 'swiper/css/navigation';
 const pulsate = ref(false);
 const heartFill = ref(false);
 const togglePulsate = () => {
-    pulsate.value = !pulsate.value;
-    heartFill.value = !heartFill.value;
-
-
+    heartFill.value = !heartFill.value; 
+    if (heartFill.value) {
+        pulsate.value = true; 
+    } else {
+        pulsate.value = false; 
+    }
 };
 
 const formattedAddress = computed(() => {
@@ -275,7 +277,7 @@ const formattedAddress = computed(() => {
     right: 24px;
     left: unset;
     z-index: 6;
-    color: #222222B2;
+    color: #222222B2; 
 
     svg {
         cursor: pointer;
@@ -283,12 +285,23 @@ const formattedAddress = computed(() => {
         width: 24px;
         height: 24px;
 
-     
+        &:hover {
+            color: red;
+        }
     }
 }
 
-.heartFill{
-    color: red;
+.heartFill {
+    color: red; 
+}
+
+.pulsate {
+    stroke: red;
+    opacity: 0; 
+}
+
+.heart:hover>.pulsate {
+    animation: pulse 1.5s forwards;
 }
 use {
     stroke: red;
@@ -296,10 +309,6 @@ use {
 
 }
 
-.heart:hover>.pulsate {
-    animation: pulse 1.5s forwards;
-
-}
 
 
 
