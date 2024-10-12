@@ -20,6 +20,12 @@ const handleClickOutside = (event) => {
         isOpen.value = false;
     }
 };
+
+// Prevent clicks inside dropdown content from closing the dropdown
+const handleInsideClick = (event) => {
+    event.stopPropagation();
+};
+
 onMounted(() => {
     setTimeout(() => {
         if (dropBtn.value) {
@@ -29,6 +35,7 @@ onMounted(() => {
 
     document.addEventListener('click', handleClickOutside);
 });
+
 onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside);
 });
@@ -42,10 +49,10 @@ onBeforeUnmount(() => {
                 <path d="M2.72914 5.5L8 10.5L13.2709 5.5H2.72914Z" fill="currentColor" />
             </svg>
         </div>
-        <div id="dropdown-content" :class="['dropdown-content', isOpen ? 'open' : '']">
+        <div id="dropdown-content" :class="['dropdown-content', isOpen ? 'open' : '']" @click.stop="handleInsideClick">
             <div>
                 <label>
-                    <input type="checkbox" value="Option 2" :checked="isChecked" />
+                    <input type="checkbox" value="Option 2" v-model="isChecked" />
                     Sale
                 </label>
                 <label>
@@ -55,7 +62,7 @@ onBeforeUnmount(() => {
             </div>
 
             <div class="submitWrapper">
-                <button class="dropdown-button">Done</button>
+                <button class="dropdown-button" @click="toggleDropDown">Done</button>
             </div>
         </div>
     </div>

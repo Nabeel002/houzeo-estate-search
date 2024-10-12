@@ -31,16 +31,15 @@ onMounted(() => {
 onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside);
 });
-
 const updateMinPrice = () => {
     if (minPrice.value > maxPrice.value) {
-        maxPrice.value = minPrice.value;
+        maxPrice.value = minPrice.value; // You could also add a notification here
     }
 };
 
 const updateMaxPrice = () => {
     if (maxPrice.value < minPrice.value) {
-        minPrice.value = maxPrice.value;
+        minPrice.value = maxPrice.value; // You could also add a notification here
     }
 };
 </script>
@@ -58,11 +57,11 @@ const updateMaxPrice = () => {
                 <h2>Price Range</h2>
                 <div>
                     <label for="minPrice">Min Price: ${{ minPrice }}</label>
-                    <input type="range" id="minPrice" v-model="minPrice" :max="maxPrice" @input="updateMinPrice" />
+                    <input min="0" type="range" id="minPrice" v-model="minPrice" :max="maxPrice" @input="updateMinPrice" />
                 </div>
                 <div>
                     <label for="maxPrice">Max Price: ${{ maxPrice }}</label>
-                    <input type="range" id="maxPrice" v-model="maxPrice" :min="minPrice" @input="updateMaxPrice" />
+                    <input max="10000" type="range" id="maxPrice" v-model="maxPrice" :min="minPrice" @input="updateMaxPrice" />
                 </div>
                 <div>
                     <p>Selected Price Range: ${{ minPrice }} - ${{ maxPrice }}</p>
@@ -70,7 +69,7 @@ const updateMaxPrice = () => {
             </div>
 
             <div class="submitWrapper">
-                <button class="dropdown-button">Done</button>
+                <button class="dropdown-button" @click="toggleDropDown">Done</button>
             </div>
         </div>
     </div>
@@ -159,5 +158,33 @@ const updateMaxPrice = () => {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
+}
+input[type="range"]{
+    accent-color: #0B5AA5;
+    height: 3px;
+}
+@media screen and (max-width:650px) {
+    #dropdown-content {
+        position: absolute;
+        top: 112%;
+        left: 0px;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px 10px 0px 10px;
+        border-radius: 4px;
+        display: none;
+        width: 84vw;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        right: 0px;
+        transform: translateX(-35%);
+    }
+.dropdown-content:after{
+    left: 50%;
+}
+
+input[type="range"]{
+    width: 100%;
+}
 }
 </style>

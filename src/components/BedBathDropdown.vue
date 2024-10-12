@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
             </div>
 
             <div class="submitWrapper">
-                <button class="dropdown-button">Done</button>
+                <button class="dropdown-button" @click="toggleDropDown">Done</button>
             </div>
         </div>
     </div>

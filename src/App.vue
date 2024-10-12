@@ -144,16 +144,18 @@ const handleFilterChange = (filter) => {
   housesCount.value = filteredHouses.value.length;
 };
 const showMap = () => {
-  mapText.value = "List View"
-  showMapToggle.value = !showMapToggle.value
-  if (showMapToggle.value) {
-    mapText.value = "List View"
-    document.body.style.overflow = 'hidden';
-  } else {
-    mapText.value = "Map"
-    document.body.style.overflow = 'auto';
-  }
+  showMapToggle.value = !showMapToggle.value;
+  mapText.value = showMapToggle.value ? "List View" : "Map";
 
+  if (showMapToggle.value) {
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.height = "100%";
+  } else {
+    document.body.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.height = "";
+  }
 }
 </script>
 
@@ -192,7 +194,7 @@ const showMap = () => {
       <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M0.5 12V9.16667L9.3 0.383333C9.43333 0.261111 9.58067 0.166667 9.742 0.1C9.90333 0.0333334 10.0727 0 10.25 0C10.4278 0 10.6 0.0333334 10.7667 0.1C10.9333 0.166667 11.0778 0.266667 11.2 0.4L12.1167 1.33333C12.25 1.45556 12.3473 1.6 12.4087 1.76667C12.47 1.93333 12.5004 2.1 12.5 2.26667C12.5 2.44444 12.4696 2.614 12.4087 2.77533C12.3478 2.93667 12.2504 3.08378 12.1167 3.21667L3.33333 12H0.5ZM10.2333 3.2L11.1667 2.26667L10.2333 1.33333L9.3 2.26667L10.2333 3.2Z"
-          fill="black" />
+          fill="currentColor" />
       </svg>
       Saved
     </button>
@@ -206,7 +208,16 @@ const showMap = () => {
     </div>
     <div class="grid-wrapper">
       <h2 class="searchResultText">{{ searchResultText }}</h2>
-      <p class="housesCount">{{ housesCount }} Home</p>
+      <div class="flex-wrapper-sort">
+        <p class="housesCount">{{ housesCount }} Home</p>
+        <span class="sortByWrapper">
+          <p>Sort by: <span>New listing
+              <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.72913 6L7.99999 11L13.2709 6H2.72913Z" fill="#0B5AA5" />
+              </svg>
+            </span></p>
+        </span>
+      </div>
       <div class="card-wrapper">
 
         <Card v-for="(house, index) in filteredHouses" :key="index" :image="house.image"
@@ -229,6 +240,35 @@ const showMap = () => {
 <style scoped>
 @import './assets/stylesheets/styles.scss';
 
+.hidden-overflow {
+  overflow: hidden;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}
+
+.sortByWrapper {
+  position: absolute;
+  top: 52px;
+  margin-right: auto;
+  right: 0px;
+
+  p {
+    font-weight: 500;
+    font-size: 14px;
+    color: #00000066;
+  }
+
+  span {
+    color: #0B5AA5;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    margin-left: 0.5rem;
+  }
+}
+
 .layout-wrapper {
   display: flex;
   gap: 25px;
@@ -245,14 +285,14 @@ const showMap = () => {
 
 .searchResultText {
   position: absolute;
-  top: 16px;
+  top: 24px;
   font-weight: 600;
   font-size: 18px;
 }
 
 .housesCount {
   position: absolute;
-  top: 49px;
+  top: 52px;
   font-weight: 500;
   font-size: 14px;
   color: #00000066;
@@ -286,7 +326,7 @@ const showMap = () => {
   left: 50%;
   position: fixed;
   transform: translateX(-50%);
-  z-index: 9999;
+  z-index: 9;
   background-color: #0c5aa5;
   border-radius: 4px;
   box-shadow: 0 0 7px 1px rgba(0, 0, 0, .25);
@@ -317,13 +357,21 @@ const showMap = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor:pointer;
+  cursor: pointer;
   gap: 1rem;
   padding: 15px;
   padding-right: 25px;
   padding-left: 28px;
   font-size: 14px;
   font-family: 'Poppins';
+  transition: all 0.5s ease-in-out;
+}
+
+.desktopSave:hover {
+  border: 1px solid #0b5aa5;
+  color: #2876c1;
+  text-shadow: 0 0 .65px #333, 0 0 .65px #333;
+  background-color: #f3f7fa;
 }
 
 @media screen and (max-width:1180px) {
@@ -341,7 +389,7 @@ const showMap = () => {
   transform: translateX(0%) !important;
   width: 100% !important;
   z-index: 999;
-  margin-left: -24px;
+
 
   #map {
     width: 100%;
@@ -364,13 +412,14 @@ const showMap = () => {
   .transform-0 {
     transform: translateX(-200%);
     position: absolute;
+    width: 100%;
   }
 
   .grid-wrapper {
     position: static;
     width: 100%;
     padding-right: 23px;
-    margin-top: 250px;
+    margin-top: 194px;
   }
 
   .card-wrapper {
@@ -385,6 +434,36 @@ const showMap = () => {
   }
 }
 
+@media screen and (max-width:650px) {
+  .sortByWrapper {
+    position: static;
+    margin-right: unset;
+
+    p {
+      margin-top: 10px;
+    }
+  }
+
+  .flex-wrapper-sort {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 24px;
+    margin-bottom: 15px;
+  }
+
+  .card-wrapper {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .grid-wrapper {
+    padding: unset !important;
+  }
+
+  .layout-wrapper {
+    padding: unset !important;
+  }
+}
 
 @media screen and (max-width:580px) {
   .card-wrapper {

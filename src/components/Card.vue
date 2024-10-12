@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="price-wrapper">
-                <span class="price">$ {{ price }}</span>
+                <span class="price">${{ formatPrice(price) }}</span>
                 <div class="area-info">
                     <span>{{ beds }} Beds</span>
                     <span>{{ baths }} Baths</span>
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="main-description">
-                {{ address }}<br />
+                <span id="address" v-html="formattedAddress"></span> <br />
                 {{ description }}
             </div>
         </div>
@@ -40,7 +40,7 @@
             6 days on houzeo
         </div>
 
-        <div class="heart" @click="togglePulsate" :class="{heartFill}">
+        <div class="heart" @click="togglePulsate" :class="{ heartFill }">
             <svg id="heart" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg"
                 :class="{ pulsate }">
                 <path
@@ -53,6 +53,9 @@
 </template>
 
 <script setup>
+const formatPrice = (value) => {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 const props = defineProps({
     image: {
@@ -83,35 +86,45 @@ const props = defineProps({
         type: String,
         required: true
     },
-
     days: {
         type: Number,
         required: true
+    },
+    squareFeet: {
+        type: Number,
+        required: true
     }
-})
+});
+
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination } from 'swiper/modules';
-import { ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-const pulsate = ref(false)
+const pulsate = ref(false);
+const heartFill = ref(false);
 
-const heartFill = ref(false)
 const togglePulsate = () => {
     pulsate.value = !pulsate.value;
-    heartFill.value = !heartFill.value
+    heartFill.value = !heartFill.value;
 };
-</script>
 
+const formattedAddress = computed(() => {
+    const words = props.address.split(' ');
+    const firstFourWords = words.slice(0, 4).join(' ');
+    const remainingWords = words.slice(4).join(' ');
+    return `<span style="color:black; font-weight:500;">${firstFourWords}</span> ${remainingWords}`;
+});
+</script>
 <style lang="scss" scoped>
 @import '../assets/stylesheets/styles.scss';
 
 @mixin overlayButtons {
     position: absolute;
     top: 19.5px;
-    z-index: 9;
+    z-index: 6;
     left: 24px;
     background-color: #FFF;
     border-radius: 22px;
@@ -119,7 +132,9 @@ const togglePulsate = () => {
     padding-left: 7px;
     padding-right: 7px;
 }
-
+.main-description{
+    max-width: 43ch;
+}
 .card {
     box-shadow: 0px 0px 20px 0px #00000033;
     height: fit-content;
@@ -129,9 +144,11 @@ const togglePulsate = () => {
     margin-left: 10px;
     transition: box-shadow 0.5s ease-in-out;
     cursor: pointer;
-  &:hover{
-box-shadow: 0px 0px 30px 5px rgb(152, 152, 152);
-  }
+
+    &:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+
     .image-wrapper {
         height: 200px;
         overflow: hidden;
@@ -161,6 +178,13 @@ box-shadow: 0px 0px 30px 5px rgb(152, 152, 152);
             font-weight: 600;
             margin-right: 4px;
         }
+    }
+
+    .marker-pill {
+        border: 1px solid #0000001A;
+        border-radius: 25px;
+        padding-right: 8px;
+        padding-left: 8px;
     }
 
     .marker-pill,
@@ -213,11 +237,12 @@ box-shadow: 0px 0px 30px 5px rgb(152, 152, 152);
     top: 19.5px;
     right: 24px;
     left: unset;
-    z-index: 9;
-    
+    z-index: 6;
+
     svg {
         cursor: pointer;
         transition: all 0.5s ease-in-out;
+
         &:hover {
             color: red;
         }
@@ -231,9 +256,11 @@ box-shadow: 0px 0px 30px 5px rgb(152, 152, 152);
     animation: pulse 0.6s forwards;
 
 }
-.heartFill{
+
+.heartFill {
     color: red;
 }
+
 .pulsate {
     animation: pulse 0.6s forwards;
 }
@@ -247,23 +274,20 @@ box-shadow: 0px 0px 30px 5px rgb(152, 152, 152);
     50% {
         transform: scale(1.2);
         color: red;
-        /* Change fill color to red on pulse */
     }
 
     100% {
         transform: scale(1);
         fill: #222222;
-        /* Revert back to original color */
+       
     }
 }
 
 @media screen and (max-width: 1025px) {
     .card {
-       margin-left: unset;
+        margin-left: unset;
     }
 }
 
-@media screen and (max-width: 768px) {
-   
-}
+@media screen and (max-width: 768px) {}
 </style>

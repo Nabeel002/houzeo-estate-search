@@ -60,7 +60,7 @@ else {
     border-bottom: 2px solid rgba(0, 0, 0, 0.2);
     position: fixed;
     top: 0;
-    z-index: 99;
+    z-index: 7;
     background-color: white;
     width: 100%;
     display: flex;
@@ -92,7 +92,7 @@ else {
     .navbar {
         position: fixed;
         width: 90%;
-        z-index: 99999;
+        z-index: 7;
     }
 
     .line-1 {
