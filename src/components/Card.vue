@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card" @mouseover="mouseEvent">
         <swiper class="mySwiper" :slidesPerView="1" :pagination="{ clickable: true }" :navigation="true"
             :modules="[Pagination, Navigation]">
             <swiper-slide v-for="(img, index) in image" :key="index" class="image-wrapper">
@@ -8,7 +8,7 @@
         </swiper>
         <div class="content-wrapper">
             <div>
-                <div class="marker-pill">
+                <div class="marker-pill pill-shape">
                     <img src="../assets/green-marker.svg" alt="" />
                     <span>House For Sale</span>
                 </div>
@@ -40,14 +40,23 @@
             6 days on houzeo
         </div>
 
-        <div class="heart" @click="togglePulsate" :class="{ heartFill }">
-            <svg id="heart" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg"
-                :class="{ pulsate }">
+        <div id="heart" class="heart" @click="togglePulsate">
+            <svg x="50" y="50" width="200" height="200" viewBox="0 0 20 20">
                 <path
-                    d="M7 3.96143C4.239 3.96143 2 6.17743 2 8.91143C2 11.1184 2.875 16.3564 11.488 21.6514C11.6423 21.7453 11.8194 21.795 12 21.795C12.1806 21.795 12.3577 21.7453 12.512 21.6514C21.125 16.3564 22 11.1184 22 8.91143C22 6.17743 19.761 3.96143 17 3.96143C14.239 3.96143 12 6.96143 12 6.96143C12 6.96143 9.761 3.96143 7 3.96143Z"
-                    fill="currentColor" fill-opacity="0.7" stroke="white" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
+                    d="M8.612,2.347L8,2.997l-0.612-0.65c-1.69-1.795-4.43-1.795-6.12,0c-1.69,1.795-1.69,4.706,0,6.502l0.612,0.65L8,16l6.12-6.502l0.612-0.65c1.69-1.795,1.69-4.706,0-6.502C13.042,0.551,10.302,0.551,8.612,2.347z"
+                    fill="none" stroke="white" stroke-width="3.5" transform="scale(0.954929658551372)"></path>
+
+                <svg :class="['heart', heartFill ? 'heartFill' : '']" id="heart-svg" preserveAspectRatio="xMidYMid meet"
+                    viewbox="0 0 20 20">
+                    <use xlink:href="#shape" class="pulsate" />
+                    <path id="shape"
+                        d="M8.612,2.347L8,2.997l-0.612-0.65c-1.69-1.795-4.43-1.795-6.12,0c-1.69,1.795-1.69,4.706,0,6.502l0.612,0.65L8,16  l6.12-6.502l0.612-0.65c1.69-1.795,1.69-4.706,0-6.502C13.042,0.551,10.302,0.551,8.612,2.347z"
+                        fill="currentColor" transform="scale( 0.954929658551372 )">
+                    </path>
+                </svg>
             </svg>
+
+
         </div>
     </div>
 </template>
@@ -58,6 +67,10 @@ const formatPrice = (value) => {
 };
 
 const props = defineProps({
+    id: {
+        type: Number,
+        required: true
+    },
     image: {
         type: Array,
         required: true
@@ -95,7 +108,11 @@ const props = defineProps({
         required: true
     }
 });
+const emit = defineEmits(["mouseEvent"]);
 
+const mouseEvent = () => {
+    emit("mouseEvent", props.id);
+};
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination } from 'swiper/modules';
 import { onMounted, ref, computed } from 'vue';
@@ -105,10 +122,11 @@ import 'swiper/css/navigation';
 
 const pulsate = ref(false);
 const heartFill = ref(false);
-
 const togglePulsate = () => {
     pulsate.value = !pulsate.value;
     heartFill.value = !heartFill.value;
+
+
 };
 
 const formattedAddress = computed(() => {
@@ -120,6 +138,10 @@ const formattedAddress = computed(() => {
 </script>
 <style lang="scss" scoped>
 @import '../assets/stylesheets/styles.scss';
+
+#heart-svg {
+    overflow: visible;
+}
 
 @mixin overlayButtons {
     position: absolute;
@@ -133,8 +155,13 @@ const formattedAddress = computed(() => {
     padding-right: 7px;
 }
 .main-description{
+    display: block !important;
+}
+.main-description {
     max-width: 43ch;
 }
+
+
 .card {
     box-shadow: 0px 0px 20px 0px #00000033;
     height: fit-content;
@@ -146,7 +173,7 @@ const formattedAddress = computed(() => {
     cursor: pointer;
 
     &:hover {
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     }
 
     .image-wrapper {
@@ -180,11 +207,20 @@ const formattedAddress = computed(() => {
         }
     }
 
-    .marker-pill {
+    svg {
+        overflow: visible;
+    }
+
+    .pill-shape {
         border: 1px solid #0000001A;
         border-radius: 25px;
         padding-right: 8px;
         padding-left: 8px;
+    }
+
+    #address {
+        margin-bottom: 8px;
+        display: inline-block;
     }
 
     .marker-pill,
@@ -232,56 +268,59 @@ const formattedAddress = computed(() => {
 
 }
 
+
 .heart {
     position: absolute;
     top: 19.5px;
     right: 24px;
     left: unset;
     z-index: 6;
+    color: #222222B2;
 
     svg {
         cursor: pointer;
-        transition: all 0.5s ease-in-out;
+        transition: all 1s ease-in-out;
+        width: 24px;
+        height: 24px;
 
-        &:hover {
-            color: red;
-        }
-
+     
     }
 }
 
-
-
-.heart:hover {
-    animation: pulse 0.6s forwards;
-
-}
-
-.heartFill {
+.heartFill{
     color: red;
 }
+use {
+    stroke: red;
+    opacity: 0;
 
-.pulsate {
-    animation: pulse 0.6s forwards;
 }
+
+.heart:hover>.pulsate {
+    animation: pulse 1.5s forwards;
+
+}
+
+
+
+
+
+
+
+
 
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-        fill: #222222;
+    from {
+        opacity: 0.5;
+        stroke-width: 0;
     }
 
-    50% {
-        transform: scale(1.2);
-        color: red;
-    }
-
-    100% {
-        transform: scale(1);
-        fill: #222222;
-       
+    to {
+        opacity: 0;
+        stroke-width: 15px;
     }
 }
+
 
 @media screen and (max-width: 1025px) {
     .card {

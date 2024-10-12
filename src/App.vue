@@ -15,6 +15,7 @@ const filteredHouses = ref([])
 const searchInput = ref(null)
 const searchQuery = ref("")
 const mapText = ref("Map")
+const mapRef = ref()
 const searchResultText = ref("Austin, TX real estate & homes for sale")
 const houses = ref([
   {
@@ -22,6 +23,7 @@ const houses = ref([
       { src: '/assets/house1.png' },
       { src: '/assets/house2.png' }
     ],
+    id:1,
     viewCount: 2.3,
     price: 3349000,
     beds: 4,
@@ -36,6 +38,7 @@ const houses = ref([
       { src: '/assets/house1.png' },
       { src: '/assets/house2.png' }
     ],
+    id:2,
     viewCount: 2.3,
     price: 3349000,
     beds: 4,
@@ -50,6 +53,7 @@ const houses = ref([
       { src: '/assets/house1.png' },
       { src: '/assets/house2.png' }
     ],
+    id:3,
     viewCount: 2.3,
     price: 3349000,
     beds: 4,
@@ -64,6 +68,7 @@ const houses = ref([
       { src: '/assets/house1.png' },
       { src: '/assets/house2.png' }
     ],
+    id:4,
     viewCount: 2.3,
     price: 3349000,
     beds: 4,
@@ -78,6 +83,7 @@ const houses = ref([
       { src: '/assets/house1.png' },
       { src: '/assets/house2.png' }
     ],
+    id:5,
     viewCount: 2.3,
     price: 3349000,
     beds: 4,
@@ -92,6 +98,7 @@ const houses = ref([
       { src: '/assets/house1.png' },
       { src: '/assets/house2.png' }
     ],
+    id:6,
     viewCount: 2.3,
     price: 3349000,
     beds: 4,
@@ -105,6 +112,17 @@ const houses = ref([
 ]);
 const housesCount = ref(houses.value.length)
 
+
+const handleMouseEvent = (id) => {
+  const mapComponent = mapRef.value;
+  if (mapComponent) {
+    const marker = mapComponent.markers.find((m) => m.id === id);
+    if (marker) {
+      mapComponent.openInfoWindow(marker);
+    }
+
+  }
+};
 
 
 const clearSearch = () => {
@@ -204,7 +222,7 @@ const showMap = () => {
 
   <div class="layout-wrapper">
     <div :class="['transform-0', showMapToggle ? 'active' : '']">
-      <Map :display="showMapToggle" />
+      <Map :display="showMapToggle" ref="mapRef"/>
     </div>
     <div class="grid-wrapper">
       <h2 class="searchResultText">{{ searchResultText }}</h2>
@@ -222,7 +240,7 @@ const showMap = () => {
 
         <Card v-for="(house, index) in filteredHouses" :key="index" :image="house.image"
           :description="house.description" :beds="house.beds" :baths="house.baths" :address="house.address"
-          :price="house.price" :viewCount="house.viewCount" :squareFeet="house.squareFeet" />
+          :price="house.price" :viewCount="house.viewCount" :squareFeet="house.squareFeet" :id="house.id" @mouseEvent="handleMouseEvent" />
       </div>
     </div>
   </div>

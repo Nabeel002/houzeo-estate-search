@@ -4,11 +4,13 @@
 
 <script setup>
 import "dotenv";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, defineExpose } from "vue";
 import { Loader } from "@googlemaps/js-api-loader";
 import markerIcon from "../assets/map-marker.svg";
-// Reference for the map object
+
 const map = ref(null);
+const markers = ref([]);
+const infoWindow = ref(null);
 
 onMounted(() => {
     const loader = new Loader({
@@ -25,15 +27,15 @@ onMounted(() => {
                 zoom: 4,
             });
 
-            const markers = [
-                { position: { lat: 40.7128, lng: -74.0060 }, title: "New York" },
-                { position: { lat: 34.0522, lng: -118.2437 }, title: "Los Angeles" },
-                { position: { lat: 41.8781, lng: -87.6298 }, title: "Chicago" },
+            infoWindow.value = new InfoWindow();
+
+            const markerData = [
+                { id: 1, position: { lat: 35.9963, lng: -115.0776 }, title: "Las Vegas" },
+                { id: 2, position: { lat: 34.0522, lng: -118.2437 }, title: "Los Angeles" },
+                { id: 3, position: { lat: 41.8781, lng: -87.6298 }, title: "Chicago" },
             ];
 
-            const infoWindow = new InfoWindow();
-
-            markers.forEach(({ position, title }) => {
+            markerData.forEach(({ id, position, title }) => {
                 const marker = new Marker({
                     map: map.value,
                     position: position,
@@ -44,17 +46,37 @@ onMounted(() => {
                     },
                 });
 
-             
-                marker.addListener("mouseover", () => {
-                    infoWindow.setContent(title);
-                    infoWindow.open(map.value, marker);
-                });
+                marker.id = id;
+                markers.value.push(marker);
 
+                marker.addListener("mouseover", () => {
+                    openInfoWindow(marker);
+                });
+                marker.addListener("click", () => {
+                    openInfoWindow(marker);})
+                marker.addListener("mouseout", () => {
+                    closeInfoWindow();
+                });
+                
             });
         } else {
             console.error("Google Maps API not loaded");
         }
     });
+});
+
+const openInfoWindow = (marker) => {
+    if (infoWindow.value) {
+        infoWindow.value.setContent(marker.title);
+        infoWindow.value.open(map.value, marker);
+    }
+};
+const closeInfoWindow = (marker) => {
+    infoWindow.value.close();
+};
+defineExpose({
+    openInfoWindow,
+    markers,
 });
 </script>
 
@@ -64,21 +86,21 @@ onMounted(() => {
     height: 100vh;
 }
 
-:deep(.gm-ui-hover-effect){
-        background: white !important;
-            display: block;
-            border: 0px;
-            margin: 0px;
-            padding: 0px;
-            text-transform: none;
-            appearance: none;
-            position: relative;
-            cursor: pointer;
-            user-select: none;
-            width: fit-content !important;
-            height:auto !important;
-            border: 0px !important;
-            outline:0px !important; 
-            display: none !important;
+:deep(.gm-ui-hover-effect) {
+    background: white !important;
+    display: block;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    text-transform: none;
+    appearance: none;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    width: fit-content !important;
+    height: auto !important;
+    border: 0px !important;
+    outline: 0px !important;
+    display: none !important;
 }
 </style>

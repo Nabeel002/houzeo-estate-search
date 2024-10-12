@@ -144,7 +144,7 @@ const updateMaxPrice = () => {
     padding: 10px 10px 0px 10px;
     border-radius: 4px;
     display: none;
-    width: 150%;
+    width: 22vw;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
@@ -162,6 +162,9 @@ const updateMaxPrice = () => {
 input[type="range"]{
     accent-color: #0B5AA5;
     height: 3px;
+}
+input[type="range"] {
+    width: 100%;
 }
 @media screen and (max-width:650px) {
     #dropdown-content {
