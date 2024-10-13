@@ -161,7 +161,7 @@ input[type="range"] {
     #dropdown-content {
         position: absolute;
         top: 112%;
-        left: 0px;
+        left: -12px;
         background-color: white;
         border: 1px solid #ccc;
         padding: 10px 10px 0px 10px;
@@ -180,5 +180,13 @@ input[type="range"] {
 input[type="range"]{
     width: 100%;
 }
+}
+
+@media screen and (max-width:312px) {
+    #dropdown-content{
+        left: -24px;
+    }
+
+    
 }
 </style>
