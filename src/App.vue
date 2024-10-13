@@ -104,7 +104,7 @@ const houses = ref([
     beds: 4,
     baths: 3,
     squareFeet: 998,
-    address: '174 Abia Martin Drive',
+    address: '2856 Meadow Park Ave, Henderson, NV 89052',
     description: 'Nashville (Real Tracs Mid) MLS-TN as distributed by MLS GRID',
     status: 'sold',
   },

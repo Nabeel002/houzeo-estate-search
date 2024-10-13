@@ -142,7 +142,7 @@ const formattedAddress = computed(() => {
     const words = props.address.split(' ');
     const firstFourWords = words.slice(0, 4).join(' ');
     const remainingWords = words.slice(4).join(' ');
-    return `<span style="color:black; font-weight:500;">${firstFourWords}</span> ${remainingWords};`
+    return `<span style="color:black; font-weight:500;">${firstFourWords}</span> ${remainingWords}`;
 });
 </script>
 <style lang="scss" scoped>
