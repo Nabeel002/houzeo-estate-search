@@ -165,13 +165,6 @@ const showMap = () => {
   showMapToggle.value = !showMapToggle.value;
   mapText.value = showMapToggle.value ? "List View" : "Map";
 
-  // if (showMapToggle.value) {
-  //   document.body.style.overflow = "hidden";
-  //   document.documentElement.style.overflow = "hidden"; // Set overflow hidden on <html>
-  // } else {
-  //   document.body.style.overflow = "";
-  //   document.documentElement.style.overflow = ""; // Reset overflow on <html>
-  // }
 }
 </script>
 
