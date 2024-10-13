@@ -1,6 +1,6 @@
 <script setup>
 import Navbar from './components/Navbar.vue'
-import DropDown from './components/DropDown.vue'
+import Dropdown from './components/Dropdown.vue'
 import RangeDropDown from './components/RangeDropDown.vue'
 import BedBathDropdown from './components/BedBathDropdown.vue'
 import PropertyType from './components/PropertyType.vue'
@@ -165,15 +165,13 @@ const showMap = () => {
   showMapToggle.value = !showMapToggle.value;
   mapText.value = showMapToggle.value ? "List View" : "Map";
 
-  if (showMapToggle.value) {
-    document.body.style.overflow = "hidden";
-    document.body.style.position = "fixed";
-    document.body.style.height = "100%";
-  } else {
-    document.body.style.overflow = "";
-    document.body.style.position = "";
-    document.body.style.height = "";
-  }
+  // if (showMapToggle.value) {
+  //   document.body.style.overflow = "hidden";
+  //   document.documentElement.style.overflow = "hidden"; // Set overflow hidden on <html>
+  // } else {
+  //   document.body.style.overflow = "";
+  //   document.documentElement.style.overflow = ""; // Reset overflow on <html>
+  // }
 }
 </script>
 
@@ -183,6 +181,7 @@ const showMap = () => {
   </a>
   <Navbar />
   <div class="filter-wrapper">
+  
     <div class="input-wrapper">
       <input type="search" id="search-bar" v-model="searchQuery" ref="searchInput"
         placeholder="Search by city, state, or zip" />
@@ -203,7 +202,7 @@ const showMap = () => {
       </svg>
     </div>
 
-    <DropDown title="For Sale" :onFilterChange="handleFilterChange" />
+    <Dropdown title="For Sale" :onFilterChange="handleFilterChange" />
     <RangeDropDown title="Price" :onFilterChange="handleFilterChange" />
     <BedBathDropdown title="Bed & Bath" :onFilterChange="handleFilterChange" />
     <PropertyType title="Property Type" :onFilterChange="handleFilterChange" />
@@ -222,7 +221,7 @@ const showMap = () => {
 
   <div class="layout-wrapper">
     <div :class="['transform-0', showMapToggle ? 'active' : '']">
-      <Map :display="showMapToggle" ref="mapRef"/>
+      <Map :display="showMapToggle" ref="mapRef" />
     </div>
     <div class="grid-wrapper">
       <h2 class="searchResultText">{{ searchResultText }}</h2>
@@ -240,7 +239,8 @@ const showMap = () => {
 
         <Card v-for="(house, index) in filteredHouses" :key="index" :image="house.image"
           :description="house.description" :beds="house.beds" :baths="house.baths" :address="house.address"
-          :price="house.price" :viewCount="house.viewCount" :squareFeet="house.squareFeet" :id="house.id" @mouseEvent="handleMouseEvent" />
+          :price="house.price" :viewCount="house.viewCount" :squareFeet="house.squareFeet" :id="house.id"
+          @mouseEvent="handleMouseEvent" />
       </div>
     </div>
   </div>
@@ -429,7 +429,7 @@ const showMap = () => {
 
   .transform-0 {
     transform: translateX(-200%);
-    position: absolute;
+    position: fixed;
     width: 100%;
   }
 
@@ -470,8 +470,8 @@ const showMap = () => {
   }
 
   .card-wrapper {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .grid-wrapper {

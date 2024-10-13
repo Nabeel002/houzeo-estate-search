@@ -1,4 +1,12 @@
 @import "./base.scss";
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+
 @mixin input-state {
   border: double 3px transparent;
   border-radius: 25px;
@@ -94,7 +102,8 @@
   z-index: 7;
   background-color: white;
   width: 100%;
-  padding-left: 28px;
+  padding-left: 16px;
+  padding-right: 16px;
   padding-top: 16px;
   padding-bottom: 16px;
 }
@@ -157,11 +166,11 @@
 }
 
 :deep(.swiper-button-next) {
-  content: url("../arrow-right.svg");
+  content: url("../arrow.png");
   width: 44px !important;
 }
 :deep(.swiper-button-prev) {
-  content: url("../arrow-right.svg");
+  content: url("../arrow.png");
   transform: rotate(180deg);
   top: var(--swiper-navigation-top-offset, 47%) !important;
   width: 44px !important;
@@ -189,7 +198,7 @@
 }
 @media screen and (max-width: 650px) {
   .transform-0 {
-    top: 79px !important;
+    top: 217px !important;
     z-index: 8 !important;
   }
   .mobile-person-icon {
@@ -205,7 +214,7 @@
     margin-bottom: 0px;
   }
   .input-wrapper {
-    width: 70%;
+    width: 80%;
   }
 
   .housesCount {
@@ -226,7 +235,6 @@
     color: white;
     font-size: 12px;
     font-weight: 500;
-    margin-right: 33px;
   }
   .mobile-filter-wrapper {
     display: block;
@@ -241,12 +249,24 @@
   }
 }
 
-@media screen and (max-width: 366px) {
+@media screen and (max-width: 425px) {
+  .transform-0 {
+    top: 270px !important;
+    z-index: 8 !important;
+  }
   .grid-wrapper {
     margin-top: 255px !important;
   }
 
   #search-bar::placeholder {
     font-size: 12px;
+  }
+
+
+  @media screen and (max-width:310px) {
+    .input-wrapper{
+      width: 100%;
+    }
+    
   }
 }

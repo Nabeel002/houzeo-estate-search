@@ -9,8 +9,8 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 const isOpen = ref(false);
 const dropBtn = ref(null);
 const isChecked = ref(false);
-const minPrice = ref(0);
-const maxPrice = ref(100000);
+const minPrice = ref(500);
+const maxPrice = ref(1000000);
 
 const toggleDropDown = () => {
     isOpen.value = !isOpen.value;
@@ -31,17 +31,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside);
 });
-const updateMinPrice = () => {
-    if (minPrice.value > maxPrice.value) {
-        maxPrice.value = minPrice.value; // You could also add a notification here
-    }
-};
 
-const updateMaxPrice = () => {
-    if (maxPrice.value < minPrice.value) {
-        minPrice.value = maxPrice.value; // You could also add a notification here
-    }
-};
 </script>
 
 <template>
@@ -57,11 +47,12 @@ const updateMaxPrice = () => {
                 <h2>Price Range</h2>
                 <div>
                     <label for="minPrice">Min Price: ${{ minPrice }}</label>
-                    <input min="0" type="range" id="minPrice" v-model="minPrice" :max="maxPrice" @input="updateMinPrice" />
+                    <input type="range" min="1" max="10000" value="50" class="slider" id="myRange" v-model="minPrice">
+
                 </div>
                 <div>
                     <label for="maxPrice">Max Price: ${{ maxPrice }}</label>
-                    <input max="10000" type="range" id="maxPrice" v-model="maxPrice" :min="minPrice" @input="updateMaxPrice" />
+                    <input type="range" min="500" max="10000" value="50" class="slider" id="myRange" v-model="maxPrice">
                 </div>
                 <div>
                     <p>Selected Price Range: ${{ minPrice }} - ${{ maxPrice }}</p>

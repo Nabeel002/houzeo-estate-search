@@ -91,7 +91,7 @@ else {
 
     .navbar {
         position: fixed;
-        width: 90%;
+        width: 100%;
         z-index: 10;
     }
 
