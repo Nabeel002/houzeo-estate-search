@@ -217,12 +217,14 @@ const formattedAddress = computed(() => {
         span:first-letter {
             color: #0B5AA5;
             font-weight: 600;
+            font-size: 14px;
         }
 
         .square-feet {
             color: #0B5AA5;
             font-weight: 600;
             margin-right: 4px;
+            font-size: 14px;
         }
     }
 
@@ -265,6 +267,7 @@ const formattedAddress = computed(() => {
     .price {
         color: #0B5AA5;
         font-weight: 600;
+        font-size: 18px;
     }
 
     .content-wrapper {
@@ -275,6 +278,7 @@ const formattedAddress = computed(() => {
         color: #00000080;
         font-size: 12px;
         margin-top: 8px;
+        line-height: 18px;
     }
 }
 

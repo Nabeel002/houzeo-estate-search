@@ -269,9 +269,9 @@ const showMap = () => {
 }
 .sortByWrapper {
   position: absolute;
-  top: 52px;
+  top: 63px;
   margin-right: auto;
-  right: 0px;
+  right: 10px;
 
   p {
     font-weight: 500;
@@ -292,30 +292,31 @@ const showMap = () => {
 .layout-wrapper {
   display: flex;
   gap: 25px;
-  padding-right: 24px;
   height: 100vh;
 }
 
 .transform-0 {
   position: fixed;
   top: 158px;
-  width: 51%;
+  width: 55%;
   transition: transform 0.5s ease-in-out;
 }
 
 .searchResultText {
   position: absolute;
-  top: 24px;
+  top: 45px;
   font-weight: 600;
   font-size: 18px;
+  left: 32px;
 }
 
 .housesCount {
   position: absolute;
-  top: 52px;
+  top: 70px;
   font-weight: 500;
   font-size: 14px;
   color: #00000066;
+  left: 32px;
 }
 
 .card-wrapper {
@@ -328,19 +329,25 @@ const showMap = () => {
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding-right: 25px;
-  padding-top: 111px;
+  padding-top: 118px;
   padding-bottom: 50px;
+  padding-left: 25px;
 
 }
 
 .grid-wrapper {
   position: absolute;
-  right: 28px;
-  width: 44%;
+  right: 10px;
+  width: 45%;
   top: 143px;
 
 }
-
+@media screen and (max-width:1352px) {
+  .grid-wrapper{
+    width: 50%;
+  }
+  
+}
 .tablet-map-button {
   bottom: 30px;
   left: 50%;
