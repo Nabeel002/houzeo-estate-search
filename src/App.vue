@@ -269,7 +269,7 @@ const showMap = () => {
 }
 .sortByWrapper {
   position: absolute;
-  top: 63px;
+  top: 73px;
   margin-right: auto;
   right: 10px;
 
@@ -304,7 +304,7 @@ const showMap = () => {
 
 .searchResultText {
   position: absolute;
-  top: 45px;
+  top: 55px;
   font-weight: 600;
   font-size: 18px;
   left: 32px;
@@ -312,7 +312,7 @@ const showMap = () => {
 
 .housesCount {
   position: absolute;
-  top: 70px;
+  top: 81px;
   font-weight: 500;
   font-size: 14px;
   color: #00000066;
@@ -329,7 +329,7 @@ const showMap = () => {
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding-right: 25px;
-  padding-top: 118px;
+  padding-top: 128px;
   padding-bottom: 50px;
   padding-left: 25px;
 
@@ -346,7 +346,21 @@ const showMap = () => {
   .grid-wrapper{
     width: 50%;
   }
-  
+
+  .searchResultText{
+    top: 105px;
+  }
+
+  .card-wrapper{
+    padding-top: 170px;
+  }
+  .housesCount{
+    top:127px;
+  }
+
+  .sortByWrapper{
+    top:127px;
+  }
 }
 .tablet-map-button {
   bottom: 30px;
@@ -449,7 +463,18 @@ const showMap = () => {
   }
 
   .card-wrapper {
-    padding: unset;
+    padding-top: 111px;
+  }
+  .housesCount{
+    top: 289px
+  }
+
+  .sortByWrapper{
+    top: 289px;
+  }
+
+  .searchResultText{
+    top: 259px;
   }
 
   .layout-wrapper {
@@ -478,6 +503,7 @@ const showMap = () => {
   }
 
   .card-wrapper {
+    padding-top: unset;
     padding-left: 16px;
     padding-right: 16px;
   }
