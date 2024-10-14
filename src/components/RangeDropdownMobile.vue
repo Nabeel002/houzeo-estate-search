@@ -188,11 +188,11 @@ input[type="range"] {
 
 @media screen and (max-width:312px) {
     #dropdown-content {
-        left: -24px;
+        left: 90px;
     }
 
-
+        .dropdown-content:after {
+            left: 14%;
+        }
 }
-
-
 </style>

@@ -8,6 +8,7 @@ import Card from './components/Card.vue'
 import Map from './components/Map.vue'
 import { ref, onMounted } from 'vue'
 import DropdownFilters from './components/DropdownFilters.vue'
+import RangeDropdownMobile from './components/RangeDropdownMobile.vue'
 
 const transformClass = ref("transform-0")
 const showMapToggle = ref(false)
@@ -174,7 +175,7 @@ const showMap = () => {
   </a>
   <Navbar />
   <div class="filter-wrapper">
-  
+
     <div class="input-wrapper">
       <input type="search" id="search-bar" v-model="searchQuery" ref="searchInput"
         placeholder="Search by city, state, or zip" />
@@ -196,10 +197,16 @@ const showMap = () => {
     </div>
 
     <Dropdown title="For Sale" :onFilterChange="handleFilterChange" />
-    <RangeDropDown title="Price" :onFilterChange="handleFilterChange" />
+    <div class="bigMobile">
+      <RangeDropDown title="Price" :onFilterChange="handleFilterChange" />
+    </div>
+    <div class="smallMobile">
+      <RangeDropdownMobile title="Price" :onFilterChange="handleFilterChange" />
+    </div>
     <BedBathDropdown title="Bed & Bath" :onFilterChange="handleFilterChange" />
     <PropertyType title="Property Type" :onFilterChange="handleFilterChange" />
     <DropdownFilters title="Filters" />
+
     <button class="desktopSave">
       <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -257,7 +264,9 @@ const showMap = () => {
   position: fixed;
   width: 100%;
 }
-
+.smallMobile{
+  display: none;
+}
 .sortByWrapper {
   position: absolute;
   top: 52px;
@@ -486,5 +495,15 @@ const showMap = () => {
   }
 
 
+}
+
+@media screen and (max-width:310px) {
+  .bigMobile{
+    display: none;
+  }
+  .smallMobile{
+    display: block;
+  }
+  
 }
 </style>
