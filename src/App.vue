@@ -438,7 +438,6 @@ const showMap = () => {
   .grid-wrapper {
     position: static;
     width: 100%;
-    padding-right: 23px;
     margin-top: 194px;
   }
 
