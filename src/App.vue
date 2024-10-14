@@ -341,11 +341,21 @@ const showMap = () => {
   width: 45%;
   top: 143px;
 
+
+
+@media screen and (min-width: 1353px) and (max-width: 1368px) {
+    top: 220px;
+  }
+
 }
+
+ 
 @media screen and (max-width:1352px) {
   .grid-wrapper{
     width: 50%;
+    
   }
+
 
   .searchResultText{
     top: 105px;
@@ -459,7 +469,7 @@ const showMap = () => {
   .grid-wrapper {
     position: static;
     width: 100%;
-    margin-top: 194px;
+    margin-top: 229px;
   }
 
   .card-wrapper {
@@ -538,4 +548,6 @@ const showMap = () => {
   }
   
 }
+
+
 </style>
